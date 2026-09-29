@@ -7,7 +7,6 @@ package app.morphe.patches.gmxmail.freephone
 import app.morphe.patcher.Fingerprint import app.morphe.patcher.methodCall import app.morphe.patcher.opcode import com.android.tools.smali.dexlib2.Opcode
 
 internal object IsEuiccEnabledFingerprint : Fingerprint(
-    returnType = "Z",
     custom = { method, _ -> method.name == "isEuiccEnabled" },
 )
 

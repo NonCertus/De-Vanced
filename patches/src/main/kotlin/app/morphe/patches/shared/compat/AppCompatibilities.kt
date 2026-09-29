@@ -41,7 +41,7 @@ internal object AppCompatibilities {
         packageName = "de.gmx.mobile.android.mail",
         appIconColor = 0x003399,
         targets = listOf(
-            AppTarget("0.00.2"),
+            AppTarget("0.00.3"),
             AppTarget("9.17.2"),
         )
     )
