@@ -52,6 +52,11 @@ val forceEnableFreePhonePatch = bytecodePatch(
             """
         const-string v0, "GMX_ESIM"
         invoke-static {v0, p1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+        
+        const-string v0, "GMX_ESIM_LEN"
+        invoke-virtual {p1}, Ljava/lang/String;->length()I
+        move-result v1
+        invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;I)I
         """.trimIndent(),
         )
     }
