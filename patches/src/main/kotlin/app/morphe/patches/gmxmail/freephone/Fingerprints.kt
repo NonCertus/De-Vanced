@@ -10,6 +10,10 @@ import app.morphe.patcher.methodCall
 import app.morphe.patcher.opcode
 import com.android.tools.smali.dexlib2.Opcode
 
+internal object IsEuiccEnabledFingerprint : Fingerprint(
+    custom = { method, _ -> method.name == "isEuiccEnabled" },
+)
+
 internal object EsimEligibilityResultFingerprint : Fingerprint(
     definingClass = "Lcom/unitedinternet/portal/navigationDrawer/viewmodel/NavigationDrawerViewModelImpl\$special\$\$inlined\$map\$1\$2;",
     name = "emit",

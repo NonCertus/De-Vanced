@@ -18,6 +18,8 @@ val forceEnableFreePhonePatch = bytecodePatch(
     compatibleWith(AppCompatibilities.GMX_MAIL)
 
     execute {
+        IsEuiccEnabledFingerprint.method.returnEarly(true)
+
 
 
         EsimEligibilityResultFingerprint.let {
