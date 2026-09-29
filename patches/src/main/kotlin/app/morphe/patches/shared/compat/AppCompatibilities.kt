@@ -40,7 +40,10 @@ internal object AppCompatibilities {
         name = "GMX Mail",
         packageName = "de.gmx.mobile.android.mail",
         appIconColor = 0x003399,
-        targets = listOf(AppTarget("9.17.2")),
+        targets = listOf(
+            AppTarget("0.00.1"),
+            AppTarget("9.17.2"),
+        )
     )
 
     val GOOGLE_RECORDER = Compatibility(

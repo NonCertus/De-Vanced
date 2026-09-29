@@ -21,13 +21,13 @@ internal object NavigationDrawerDisplayFingerprint : Fingerprint(
     name = "NavigationDrawerUI",
     filters = listOf(
         methodCall(
-            definingClass = "Lcom/unitedinternet/portal/android/inapppurchase/entrypoint/EntryPointInfo;",
+            definingClass = "Lcom/unitedinternet/portal/android/inapppurchase/entrypoint/model/EntryPointInfo;",
             name = "getDisplay",
             returnType = "Z",
         ),
         opcode(Opcode.MOVE_RESULT, MatchAfterImmediately()),
         methodCall(
-            definingClass = "Lcom/unitedinternet/portal/android/inapppurchase/entrypoint/EntryPointInfo;",
+            definingClass = "Lcom/unitedinternet/portal/android/inapppurchase/entrypoint/model/EntryPointInfo;",
             name = "getDisplay",
             returnType = "Z",
         ),
