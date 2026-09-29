@@ -26,6 +26,13 @@ internal object ESimTileVisibilityChangedFingerprint : Fingerprint(
     ),
 )
 
+internal object OnEsimOfferClickedFingerprint : Fingerprint(
+    definingClass = "Lcom/unitedinternet/portal/navigationDrawer/ui/NavigationDrawerFragment;",
+    name = "onEsimOfferClicked",
+    parameters = listOf("Ljava/lang/String;"),
+    returnType = "V",
+)
+
 internal object EsimEligibilityResultFingerprint : Fingerprint(
     definingClass = "Lcom/unitedinternet/portal/navigationDrawer/viewmodel/NavigationDrawerViewModelImpl\$special\$\$inlined\$map\$1\$2;",
     name = "emit",

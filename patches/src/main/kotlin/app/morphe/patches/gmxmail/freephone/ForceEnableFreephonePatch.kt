@@ -47,6 +47,13 @@ val forceEnableFreePhonePatch = bytecodePatch(
                 "const/4 v$register, 0x1",
             )
         }
+        OnEsimOfferClickedFingerprint.method.addInstructions(
+            0,
+            """
+        const-string v0, "GMX_ESIM"
+        invoke-static {v0, p1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+        """.trimIndent(),
+        )
     }
 }
 
