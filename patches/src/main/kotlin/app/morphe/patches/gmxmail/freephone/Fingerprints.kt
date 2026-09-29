@@ -14,16 +14,4 @@ internal object IsEuiccEnabledFingerprint : Fingerprint(
     custom = { method, _ -> method.name == "isEuiccEnabled" },
 )
 
-internal object EsimEligibilityResultFingerprint : Fingerprint(
-    definingClass = "Lcom/unitedinternet/portal/navigationDrawer/viewmodel/NavigationDrawerViewModelImpl\$special\$\$inlined\$map\$1\$2;",
-    name = "emit",
-    filters = listOf(
-        opcode(Opcode.CHECK_CAST),
-        methodCall(
-            definingClass = "Ljava/lang/Boolean;",
-            name = "booleanValue",
-            returnType = "Z",
-        ),
-        opcode(Opcode.MOVE_RESULT),
-    ),
-)
+

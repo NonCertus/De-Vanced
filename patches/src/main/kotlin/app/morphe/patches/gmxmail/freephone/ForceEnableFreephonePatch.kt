@@ -22,16 +22,7 @@ val forceEnableFreePhonePatch = bytecodePatch(
 
 
 
-        EsimEligibilityResultFingerprint.let {
-            val moveResult = it.instructionMatches[2]
-            val register = moveResult
-                .getInstruction<OneRegisterInstruction>()
-                .registerA
 
-            it.method.addInstructions(
-                moveResult.index + 1,
-                "const/4 v$register, 0x1",
-            )
-        }
+
     }
 }
