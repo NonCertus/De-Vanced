@@ -28,7 +28,13 @@ val forceEnableFreePhonePatch = bytecodePatch(
     """.trimIndent(),
         )
 
-        HasEsimSupportFingerprint.method.returnEarly(true)
+        HasEsimSupportFingerprint.method.addInstructions(
+            0,
+            """
+        sget-object v0, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
+        return-object v0
+    """.trimIndent(),
+        )
 
         EsimEligibilityResultFingerprint.let {
             val moveResult = it.instructionMatches[2]
