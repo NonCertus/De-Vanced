@@ -35,41 +35,5 @@ val forceEnableFreePhonePatch = bytecodePatch(
                  return-object v0
              """.trimIndent(),
         )
-
-        EsimEligibilityResultFingerprint.let {
-            val moveResult = it.instructionMatches[2]
-            val register = moveResult
-                .getInstruction<OneRegisterInstruction>()
-                .registerA
-
-            it.method.addInstructions(
-                moveResult.index + 1,
-                "const/4 v$register, 0x1",
-            )
         }
-
-        EsimUrlIfSupportedAndPremiumFingerprint.method.addInstructions(
-            EsimUrlIfSupportedAndPremiumFingerprint.instructionMatches[1].index + 1,
-            """
-                 const-string v0, "GMX_ESIM_URL"
-                 invoke-static {v0, p1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-             """.trimIndent(),
-        )
-
-        EsimUrlIfSupportedFingerprint.method.addInstructions(
-            EsimUrlIfSupportedFingerprint.instructionMatches[1].index + 1,
-            """
-                 const-string v0, "GMX_ESIM_URL"
-                 invoke-static {v0, p1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-             """.trimIndent(),
-        )
-
-        EsimUrlIfNotSupportedFingerprint.method.addInstructions(
-            EsimUrlIfNotSupportedFingerprint.instructionMatches[1].index + 1,
-            """
-                 const-string v0, "GMX_ESIM_URL"
-                 invoke-static {v0, p1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-             """.trimIndent(),
-        )
     }
-}
