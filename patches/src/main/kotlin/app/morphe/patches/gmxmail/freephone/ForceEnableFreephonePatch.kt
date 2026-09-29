@@ -18,22 +18,18 @@ val forceEnableFreePhonePatch = bytecodePatch(
     compatibleWith(AppCompatibilities.GMX_MAIL)
 
     execute {
-        IsEuiccEnabledFingerprint.method.returnEarly(true)
 
-        IsFeatureEnabledFingerprint.method.addInstructions(
-            0,
-            """
-                 sget-object v0, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
-                 return-object v0
-             """.trimIndent(),
-        )
 
-        HasEsimSupportFingerprint.method.addInstructions(
-            0,
-            """
-                 sget-object v0, Ljava/lang/Boolean;->TRUE:Ljava/lang/Boolean;
-                 return-object v0
-             """.trimIndent(),
-        )
+        EsimEligibilityResultFingerprint.let {
+            val moveResult = it.instructionMatches[2]
+            val register = moveResult
+                .getInstruction<OneRegisterInstruction>()
+                .registerA
+
+            it.method.addInstructions(
+                moveResult.index + 1,
+                "const/4 v$register, 0x1",
+            )
         }
     }
+}
