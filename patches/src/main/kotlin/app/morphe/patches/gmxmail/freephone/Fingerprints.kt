@@ -4,7 +4,11 @@
  */
 package app.morphe.patches.gmxmail.freephone
 
-import app.morphe.patcher.Fingerprint import app.morphe.patcher.methodCall import app.morphe.patcher.opcode import com.android.tools.smali.dexlib2.Opcode
+import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.InstructionLocation.MatchAfterImmediately
+import app.morphe.patcher.methodCall
+import app.morphe.patcher.opcode
+import com.android.tools.smali.dexlib2.Opcode
 
 internal object IsEuiccEnabledFingerprint : Fingerprint(
     custom = { method, _ -> method.name == "isEuiccEnabled" },
@@ -33,6 +37,45 @@ internal object OnEsimOfferClickedFingerprint : Fingerprint(
     returnType = "V",
 )
 
+internal object EsimUrlIfSupportedAndPremiumFingerprint : Fingerprint(
+    definingClass = "Lcom/unitedinternet/portal/android/mail/esim/ESimRepositoryImpl;",
+    name = "getAppAndAccountAwareDefaultUrl",
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/unitedinternet/portal/android/remoteconfig/models/EsimConfig;",
+            name = "getUrlIfEsimSupportedAndPremium",
+            returnType = "Ljava/lang/String;",
+        ),
+        opcode(Opcode.MOVE_RESULT_OBJECT, MatchAfterImmediately()),
+    ),
+)
+
+internal object EsimUrlIfSupportedFingerprint : Fingerprint(
+    definingClass = "Lcom/unitedinternet/portal/android/mail/esim/ESimRepositoryImpl;",
+    name = "getAppAndAccountAwareDefaultUrl",
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/unitedinternet/portal/android/remoteconfig/models/EsimConfig;",
+            name = "getUrlIfEsimSupported",
+            returnType = "Ljava/lang/String;",
+        ),
+        opcode(Opcode.MOVE_RESULT_OBJECT, MatchAfterImmediately()),
+    ),
+)
+
+internal object EsimUrlIfNotSupportedFingerprint : Fingerprint(
+    definingClass = "Lcom/unitedinternet/portal/android/mail/esim/ESimRepositoryImpl;",
+    name = "getAppAndAccountAwareDefaultUrl",
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/unitedinternet/portal/android/remoteconfig/models/EsimConfig;",
+            name = "getUrlIfEsimNotSupported",
+            returnType = "Ljava/lang/String;",
+        ),
+        opcode(Opcode.MOVE_RESULT_OBJECT, MatchAfterImmediately()),
+    ),
+)
+
 internal object EsimEligibilityResultFingerprint : Fingerprint(
     definingClass = "Lcom/unitedinternet/portal/navigationDrawer/viewmodel/NavigationDrawerViewModelImpl\$special\$\$inlined\$map\$1\$2;",
     name = "emit",
@@ -46,4 +89,3 @@ internal object EsimEligibilityResultFingerprint : Fingerprint(
         opcode(Opcode.MOVE_RESULT),
     ),
 )
-
