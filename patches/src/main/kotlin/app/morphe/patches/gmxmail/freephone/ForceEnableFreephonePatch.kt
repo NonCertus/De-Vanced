@@ -7,6 +7,8 @@ package app.morphe.patches.gmxmail.freephone
 import app.morphe.patches.shared.compat.AppCompatibilities
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.util.returnEarly
+import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 
 @Suppress("unused")
 val forceEnableFreePhonePatch = bytecodePatch(
@@ -17,6 +19,20 @@ val forceEnableFreePhonePatch = bytecodePatch(
 
     execute {
         IsEuiccEnabledFingerprint.method.returnEarly(true)
+        IsFeatureEnabledFingerprint.method.returnEarly(true)
+        HasEsimSupportFingerprint.method.returnEarly(true)
+
+        EsimEligibilityResultFingerprint.let {
+            val moveResult = it.instructionMatches[2]
+            val register = moveResult
+                .getInstruction<OneRegisterInstruction>()
+                .registerA
+
+            it.method.addInstructions(
+                moveResult.index + 1,
+                "const/4 v$register, 0x1",
+            )
+        }
     }
 }
 
