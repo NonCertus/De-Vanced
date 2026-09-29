@@ -5,6 +5,9 @@
 package app.morphe.patches.gmxmail.layout
 
 import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.OpcodesFilter
+import app.morphe.patcher.methodCall
+import com.android.tools.smali.dexlib2.Opcode
 
 internal object IsUpsellingPossibleFingerprint : Fingerprint(
     custom = { method, classDef ->
@@ -12,3 +15,25 @@ internal object IsUpsellingPossibleFingerprint : Fingerprint(
     },
 )
 
+internal object NavigationDrawerDisplayFingerprint : Fingerprint(
+    definingClass = "Lcom/unitedinternet/portal/navigationDrawer/ui/NavigationDrawerComposableKt;",
+    name = "NavigationDrawerUI",
+    filters = listOf(
+        methodCall(
+            definingClass = "Lcom/unitedinternet/portal/android/inapppurchase/entrypoint/EntryPointInfo;",
+            name = "getDisplay",
+            returnType = "Z",
+        ),
+        *OpcodesFilter.opcodesToFilters(
+            Opcode.MOVE_RESULT,
+        ).toTypedArray(),
+        methodCall(
+            definingClass = "Lcom/unitedinternet/portal/android/inapppurchase/entrypoint/EntryPointInfo;",
+            name = "getDisplay",
+            returnType = "Z",
+        ),
+        *OpcodesFilter.opcodesToFilters(
+            Opcode.MOVE_RESULT,
+        ).toTypedArray(),
+    ),
+)
